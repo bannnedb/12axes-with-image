@@ -234,6 +234,22 @@
     document.getElementById("k-label").innerHTML = setLabel(k, 10)
     document.getElementById("l-label").innerHTML = setLabel(l, 11)
 
+    ideology = ""
+    ideodist = Infinity
+    for (var i = 0; i < ideologies.length; i++) {
+        dist = 0
+        dist += Math.pow(Math.abs(ideologies[i].stats.econ - f), 2)
+        dist += Math.pow(Math.abs(ideologies[i].stats.govt - b), 2)
+        dist += Math.pow(Math.abs(ideologies[i].stats.dipl - c), 1.73856063)
+        dist += Math.pow(Math.abs(ideologies[i].stats.scty - h), 1.73856063)
+        if (dist < ideodist) {
+            ideology = ideologies[i].name
+            ideodist = dist
+        }
+    }
+    
+    document.getElementById("ideology-label").innerHTML = ideology
+	
     function createImage(src, x, y, w, h) {
         img = new Image ()
         img.src = src
@@ -241,11 +257,13 @@
             ctx.drawImage(img, x, y, w, h)
         }
     }
+
     window.onload = function() {
         var c = document.getElementById("banner")
         var ctx = c.getContext("2d")
         ctx.fillStyle = "#EEEEEE"
         ctx.fillRect(0,0,800,1200)
+
         img = document.getElementById("img-a")
         ctx.drawImage(img, 20, 120, 100, 100);
         img = document.getElementById("img-a2")
@@ -294,6 +312,7 @@
         ctx.drawImage(img, 20, 1440, 100, 100)
         img = document.getElementById("img-l2")
         ctx.drawImage(img, 680, 1440, 100, 100)
+
         ctx.fillStyle="#222222"
         ctx.fillRect(120, 130, 560, 80)
         ctx.fillRect(120, 250, 560, 80)
